@@ -1,1 +1,37 @@
 # Linear-regression-model-using-machine-learning
+# Importing the libraries
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+#Importing the dataset
+dataset = pd.read_csv('Salary_Data.csv')
+X = dataset.iloc[:,:-1].values
+Y = dataset.iloc[:,-1].values
+
+#step -2 splitting dataset into test set and training set
+from sklearn.model_selection import train_test_split
+X_train,X_test,Y_train,Y_test = train_test_split(X,Y,test_size=0.2,random_state=0) # X_train - independent variables of the training set, Y_train - dependent; teest size - 20 perent of these all oberservation go insto test set
+from sklearn.linear_model import LinearRegression #LinearRegression is a instance or an object of sklearn library
+# regression and classification diffrence, regress. is predict the  real value like salary,classification is predict the real value like category or class
+regressor = LinearRegression()
+# we use fit method to train regression model;
+regressor.fit(X_train,Y_train)
+# step-3 predicting the test set result (we give 6 user experince and model predict the salary of model then after that we compare it
+Y_pred = regressor.predict(X_test) #y test contain real salary and y pred have predicted salary
+#visulising the training set
+plt.scatter(X_train,Y_train, color = 'red')
+plt.plot(X_train,regressor.predict(X_train),color = 'blue')
+plt.title('Salary vs experience (Traning set)')
+plt.xlabel('YEar of experience')
+plt.ylabel('salary')
+plt.show()
+#visulising the testt set
+plt.scatter(X_test,Y_test, color = 'red')
+plt.plot(X_train,regressor.predict(X_train),color = 'blue') #the regrasion line we get is actually resulting from a unique equation and therefore the predicted salaries of the test set will be on same regression line as the predicted salaries of the training set that,s why we don,t replace here
+plt.title('Salary vs experience (test set)')
+plt.xlabel('YEar of experience')
+plt.ylabel('salary')
+plt.show()
+
+
+
